@@ -5,7 +5,6 @@ from Metric_Extractor import Metric_Extractor
 from Itinerary import Itinerary
 from Graph_Algorithms.Dijkstra import Dijkstra
 from Graph_Algorithms.A_star import A_star
-
 from ShortestPath import ShortestPath
 
 csv_reader = Csv_reader()
@@ -13,7 +12,7 @@ csv_reader = Csv_reader()
 london_sub_graph = Graph_builder(csv_reader, Graph())
 london_sub_graph.create_station_nodes('_dataset/london.stations.csv')
 london_sub_graph.create_connections('_dataset/london.connections.csv')
-#london_sub_graph.graph.print_all_connections()
+london_sub_graph.graph.print_all_connections()
 london_sub_metrics = Metric_Extractor(london_sub_graph.graph)
 print('Average Node Degree: '+str(london_sub_metrics.get_avg_degree()))
 print('Total Edge Count: '+str(london_sub_metrics.get_edge_count()))
