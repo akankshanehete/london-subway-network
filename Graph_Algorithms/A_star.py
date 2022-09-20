@@ -8,7 +8,7 @@ from Graph_Algorithms.Priority_Queue import PriorityQueue
 
 class A_star(ShortestPath):
 
-    def shortest_path(self, graph, from_node_id, to_node_id):
+    def shortest_path2(self, graph, from_node_id, to_node_id):
         shortest_paths = self.A_star(graph, from_node_id, to_node_id)
         edge_to = shortest_paths[0]
         dist_to = shortest_paths[1]
@@ -21,7 +21,7 @@ class A_star(ShortestPath):
         print("shortest path length = ", dist_to[to_node_id])
         string_path = [str(i) for i in path]
         print(" -> ".join(reversed(string_path)))
-    def A_star(self, graph: Graph, from_node_id, to_node_id):
+    def shortest_path(self, graph: Graph, from_node_id, to_node_id):
         # provide A* implementation here
         unvisited = PriorityQueue()
         unvisited.insert(from_node_id, graph.get_max_weight() + distance(graph, graph.get_node(from_node_id), graph.get_node(to_node_id)))

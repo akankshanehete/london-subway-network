@@ -21,5 +21,5 @@ print('Total Node Count: '+str(london_sub_metrics.get_node_count()))
 london_sub_metrics.plot_node_dist()
 
 # creating an itinerary from station 36 to station 289
-itinerary = Itinerary(london_sub_graph.graph, 36, 289, A_star())
+itinerary = Itinerary(london_sub_graph.graph, 36, 289, Dijkstra())
 print(itinerary.find_shortest_path())
