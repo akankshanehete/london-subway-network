@@ -5,6 +5,7 @@ from Metric_Extractor import Metric_Extractor
 from Itinerary import Itinerary
 from Graph_Algorithms.Dijkstra import Dijkstra
 from Graph_Algorithms.A_star import A_star
+from Graph_Algorithms.Priority_Queue import PriorityQueue
 from ShortestPath import ShortestPath
 
 csv_reader = Csv_reader()
@@ -20,5 +21,5 @@ print('Total Node Count: '+str(london_sub_metrics.get_node_count()))
 london_sub_metrics.plot_node_dist()
 
 # creating an itinerary from station 36 to station 289
-itinerary = Itinerary(london_sub_graph.graph, 36, 289, Dijkstra())
+itinerary = Itinerary(london_sub_graph.graph, 36, 289, A_star())
 print(itinerary.find_shortest_path())

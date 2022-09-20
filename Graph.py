@@ -32,6 +32,16 @@ class Graph:
         self.all_nodes[to_node].add_adjacent(self.all_nodes[from_node], weight)
         self.num_edges += 1
 
+    def get_max_weight(self):
+        max = 0
+        all_nodes = list(self.all_nodes)
+        for node in all_nodes:
+            for adj in self.get_node(node).get_adjacents():
+                temp = self.get_node(node).get_weight(adj)
+                if temp > max:
+                    max = temp
+        return max
+
     #prints all connectionsin the graph
     def print_all_connections(self):
         for node in self:
