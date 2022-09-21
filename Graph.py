@@ -22,14 +22,14 @@ class Graph:
             return None
 
     # adds an edge where the default weight is 0 unless a specific number is specified
-    def add_edge(self, from_node, to_node, weight=0):
+    def add_edge(self, from_node, to_node, weight=0, label = ''):
         if from_node not in self.all_nodes:
             self.add_node(Node(from_node))
         if to_node not in self.all_nodes:
             self.add_node(Node(to_node))
 
-        self.all_nodes[from_node].add_adjacent(self.all_nodes[to_node], weight)
-        self.all_nodes[to_node].add_adjacent(self.all_nodes[from_node], weight)
+        self.all_nodes[from_node].add_adjacent(self.all_nodes[to_node], weight, label)
+        self.all_nodes[to_node].add_adjacent(self.all_nodes[from_node], weight, label)
         self.num_edges += 1
 
     def get_max_weight(self):
@@ -42,13 +42,13 @@ class Graph:
                     max = temp
         return max
 
-    #prints all connectionsin the graph
+    #prints all connections in the graph
     def print_all_connections(self):
         for node in self:
             for neighbour in node.get_adjacents():
                 node_id = node.get_node_id()
                 neighbour_id = neighbour.get_node_id()
-                print('( %s , %s, %3d)' % (node_id, neighbour_id, node.get_weight(neighbour)))
+                print('( %s , %s, %3d, %s)' % (node_id, neighbour_id, node.get_weight(neighbour), node.get_label(neighbour)))
 
 
 

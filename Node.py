@@ -4,8 +4,8 @@ class Node:
         self.id = node_id
         self.adjacent = {}
 
-    def add_adjacent(self, adjacent_node, weight=0):
-        self.adjacent[adjacent_node] = weight
+    def add_adjacent(self, adjacent_node, weight=0, label=''):
+        self.adjacent[adjacent_node] = [weight, label]
 
     def get_adjacents(self):
         return self.adjacent.keys()
@@ -14,4 +14,7 @@ class Node:
         return self.id
 
     def get_weight(self, adjacent_node):
-        return self.adjacent[adjacent_node]
+        return self.adjacent[adjacent_node][0]
+
+    def get_label(self, adjacent_node):
+        return self.adjacent[adjacent_node][1]

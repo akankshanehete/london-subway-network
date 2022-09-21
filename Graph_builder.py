@@ -28,7 +28,7 @@ class Graph_builder:
     def create_connections(self, connections_file):
         self.connections = self.csv_reader.extract_connections(connections_file)
         for connection in self.connections:
-            self.graph.add_edge(int(connection['s1']), int(connection['s2']), int(connection['time']))
+            self.graph.add_edge(int(connection['s1']), int(connection['s2']), int(connection['time']), connection['line'])
 
 
 
