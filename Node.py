@@ -18,3 +18,4 @@ class Node:
 
     def get_label(self, adjacent_node):
         return self.adjacent[adjacent_node][1]
+

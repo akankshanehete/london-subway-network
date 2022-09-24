@@ -1,6 +1,6 @@
 class PriorityQueue(object):
     def __init__(self):
-        self.queue = []
+        self.queue = list()
 
     def is_empty(self):
         return len(self.queue) == 0
@@ -10,13 +10,16 @@ class PriorityQueue(object):
 
     def pop(self):
         try:
-            high = 0
+            low = 0
             for i in range(len(self.queue)):
-                if self.queue[i][1] > self.queue[high][1]:
-                    high = i
-                highest = self.queue[high]
-                del self.queue[high]
-                return highest
+                if self.queue[i][1] <= self.queue[low][1]:
+                    low = i
+                lowest = self.queue[low]
+            del self.queue[low]
+            return lowest
         except IndexError:
             print()
             exit()
+
+    def print(self):
+        print(self.queue)

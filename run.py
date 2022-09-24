@@ -35,12 +35,12 @@ london_sub_metrics = Metric_Extractor(london_sub_graph.graph)
 #print(itinerary.find_shortest_path()[0])
 #test = Test(london_sub_graph.graph, A_star(), Compares(), 1, 2)
 #print("Compares = ", test.find_measurement())
-benchmark = Benchmark(london_sub_graph.graph, [Dijkstra(), A_star()], [5, 10, 15])
+benchmark = Benchmark(london_sub_graph.graph, [Dijkstra(), A_star()], [5, 10, 15,20,25,30,35])
 results = benchmark.do_bench()
 print(results)
-result = results['Compares']
+result = results['Visited']
 plot_kpi = Plotter()
-plot_kpi.line('Compares', [Dijkstra(), A_star()], result)
+plot_kpi.line('Visited', [Dijkstra(), A_star()], result)
 
 
 
