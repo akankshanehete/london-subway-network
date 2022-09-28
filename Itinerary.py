@@ -21,6 +21,4 @@ class Itinerary:
         string_path.reverse()
         total_weight = dist_to[self.to_station]
         return string_path, total_weight
-            #"Travel time: " + str(dist_to[self.to_station]) + "\n" + " -> ".join(reversed(string_path)) + "\nStations traversed: " + str(len(path)), len(path)
-        # return self.algo.shortest_path(self.graph, self.from_station, self.to_station)
 

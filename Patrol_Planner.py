@@ -2,7 +2,6 @@ from Graph import Graph
 from Graph_Algorithms.Priority_Queue import PriorityQueue
 from Itinerary import Itinerary
 from Graph_Algorithms.Dijkstra import Dijkstra
-import math
 import itertools
 
 class Patrol_Planner:
@@ -13,7 +12,7 @@ class Patrol_Planner:
         self.mst = Graph()
         for node in nodes_to_visit:
             if self.graph.get_node(node) == None:
-                raise Exception("Some of the nodes to visit are not contained in the graph. Please make sure every node in the list is contianed in the graph.")
+                raise Exception("Some of the nodes to visit are not contained in the graph. Please make sure every node in the list is contained in the graph.")
         self.nodes_to_visit = set(nodes_to_visit)
         self.starting_node = starting_node
         self.nodes_to_visit.add(self.starting_node)
@@ -77,11 +76,8 @@ class Patrol_Planner:
             path = itinerary1.find_shortest_path()
             paths_weights[edge] = path
             self.compressed_graph.add_edge(edge[0], edge[1], path[1])
-        print(paths_weights)
         self.__get_mst()
-        self.mst.print_all_connections()
         self.preordertraversal(self.mst)
-        print(self.condensed_patrol_path)
         self.condensed_patrol_path.append(self.starting_node)
         for i in range(0, len(self.condensed_patrol_path)-1):
             condensed_edge = (self.condensed_patrol_path[i], self.condensed_patrol_path[i+1])
@@ -95,31 +91,14 @@ class Patrol_Planner:
                 for node in paths_weights[condensed_edge_rev][0]:
                     self.patrol_path.append(node)
                 self.patrol_path_weight += paths_weights[condensed_edge_rev][1]
-        print(self.patrol_path)
         for node in self.patrol_path:
             if self.patrol_path.count(node) > 1 and node != self.starting_node:
                 self.patrol_path.remove(node)
-        return [self.patrol_path,self.patrol_path_weight]
+        return [self.patrol_path, self.patrol_path_weight]
 
 
 
 
-
-# testing algorithm
-# testgraph = Graph()
-# testgraph.add_edge(0, 2, 20)
-# testgraph.add_edge(0, 1, 10)
-# testgraph.add_edge(1, 4, 10)
-# testgraph.add_edge(1, 3, 50)
-# testgraph.add_edge(2, 3, 20)
-# testgraph.add_edge(4, 3, 20)
-# testgraph.add_edge(4, 5, 1)
-# testgraph.add_edge(5, 3, 2)
-# testgraph.add_edge(2, 4, 33)
-# patrol1 = Patrol_Planner(testgraph,[0,2], 0)
-# patrol_path = patrol1.find_patrol_path()
-# print(patrol_path[0])
-# print(patrol_path[1])
 
 
 
