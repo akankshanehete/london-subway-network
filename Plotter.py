@@ -2,11 +2,12 @@ import matplotlib
 matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
 
-# given a list of y values, this function plots it using matplotlib in a visualizable way
+
 class Plotter:
     def __init__(self):
         pass
 
+    # given a list of y values, this function plots it using matplotlib in a visualizable way
     def plot (self, y: list, title = '', x_title = '', y_title = ''):
         plt.plot(y)
         plt.ylabel(y_title)
@@ -14,7 +15,7 @@ class Plotter:
         plt.xlabel(x_title)
         plt.show()
 
-
+    # this function plots multiple lines into one line plot
     def line(self, kpi, algos: list, result):
         names = []
         for algo in algos:
@@ -40,5 +41,4 @@ class Plotter:
         plt.title("Benchmarking " + kpi)
         plt.legend()
         plt.show()
-        # fig.savefig('outputs/sort_comparisons_small.pdf')
 

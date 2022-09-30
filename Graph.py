@@ -1,12 +1,13 @@
 from Node import Node
 
-# creates a graph
+# creates a graph object
 class Graph:
     def __init__(self):
         self.num_nodes = 0
         self.num_edges = 0
         self.all_nodes = {}
 
+    # makes graph object iterable
     def __iter__(self):
         return iter(self.all_nodes.values())
 
@@ -44,7 +45,12 @@ class Graph:
             return True
         return False
 
-
+    def delete_edge(self, from_node, to_node):
+        if from_node not in self.all_nodes or to_node not in self.all_nodes:
+            raise Exception("One or both of these nodes are not contained in the graph. Please enter nodes that are contained in the graph.")
+        self.all_nodes[from_node].del_adjacent(self.all_nodes[to_node])
+        self.all_nodes[to_node].del_adjacent(self.all_nodes[from_node])
+        self.num_edges -= 1
 
     def get_max_weight(self):
         max = 0
@@ -55,7 +61,6 @@ class Graph:
                 if temp > max:
                     max = temp
         return max
-
 
     #prints all connections in the graph
     def print_all_connections(self):
