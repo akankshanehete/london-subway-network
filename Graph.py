@@ -11,11 +11,13 @@ class Graph:
     def __iter__(self):
         return iter(self.all_nodes.values())
 
+    # adds node to graph
     def add_node(self, node: Node):
         self.num_nodes += 1
         self.all_nodes[node.get_node_id()] = node
         return node
 
+    # given node id, this function gets a node
     def get_node(self, node):
         if node in self.all_nodes:
             return self.all_nodes[node]
@@ -34,17 +36,17 @@ class Graph:
         self.all_nodes[to_node].add_adjacent(self.all_nodes[from_node], weight, label)
         self.num_edges += 1
 
+    # checks if there is a given edge between 2 node ids in graph
     def is_edge(self, from_node, to_node):
         if from_node not in self.all_nodes:
-            print(1)
             return False
         if to_node not in self.all_nodes:
-            print(2)
             return False
         if (self.get_node(from_node) in self.get_node(to_node).get_adjacents()) and self.get_node(to_node) in self.get_node(from_node).get_adjacents():
             return True
         return False
 
+    # deletes edge from graph if edge is present in graph
     def delete_edge(self, from_node, to_node):
         if from_node not in self.all_nodes or to_node not in self.all_nodes:
             raise Exception("One or both of these nodes are not contained in the graph. Please enter nodes that are contained in the graph.")
@@ -52,6 +54,7 @@ class Graph:
         self.all_nodes[to_node].del_adjacent(self.all_nodes[from_node])
         self.num_edges -= 1
 
+    # gets the maximum weight from the graph
     def get_max_weight(self):
         max = 0
         all_nodes = list(self.all_nodes)
@@ -62,7 +65,7 @@ class Graph:
                     max = temp
         return max
 
-    #prints all connections in the graph
+    # prints all connections in the graph, along with their weight and label (if the label exists)
     def print_all_connections(self):
         for node in self:
             for neighbour in node.get_adjacents():
