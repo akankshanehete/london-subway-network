@@ -1,7 +1,6 @@
-# represents a node in the graph
 class Node:
-    def __init__(self, node_id):
-        self.id = node_id
+    def __init__(self, node):
+        self.id = node
         self.adjacent = {}
 
     # adds adjacent node id to this node's adjacency list
@@ -12,7 +11,7 @@ class Node:
     def del_adjacent(self, adjacent_node):
         self.adjacent.pop(adjacent_node)
 
-    # gets this node's adjaceny list
+    # gets this node's adjacency list
     def get_adjacents(self):
         return self.adjacent.keys()
 
@@ -20,11 +19,10 @@ class Node:
     def get_node_id(self):
         return self.id
 
-    # gets the weight of the edge connecting this node to one of its adjacents
+    # gets the weight of the edge connecting this node to one of its adjacent nodes
     def get_weight(self, adjacent_node):
         return self.adjacent[adjacent_node][0]
 
-    # gets the label of the edge connecting this node to one of its adjacents
+    # gets the label of the edge connecting this node to one of its adjacent nodes
     def get_label(self, adjacent_node):
         return self.adjacent[adjacent_node][1]
-

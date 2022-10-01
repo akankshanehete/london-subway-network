@@ -1,38 +1,44 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import platform
+from typing import List
+
 if platform.system() == 'Darwin':
     matplotlib.use('MacOSX')
 else:
     matplotlib.use('TkAgg')
 
+Num = int
+KPI = str
+Traversed = int
+Result = dict
 
-# given a list of y values, this function plots it using matplotlib
+
 class Plotter:
     def __init__(self):
         pass
 
-    def plot(self, y: list, title='', x_title='', y_title=''):
+    # given a list of y values, this function plots it using matplotlib
+    def plot(self, y: List[Num], title='', x_title='', y_title=''):
         plt.plot(y)
         plt.ylabel(y_title)
         plt.suptitle(title)
         plt.xlabel(x_title)
         plt.show()
 
-    def bar(self, kpi, traversed, result: dict):
+    # plots a bar graph for execution time KPIs with x-axis = time, y-axis = instances
+    def bar(self, kpi: KPI, traversed: Traversed, result: Result):
         fig, ax = plt.subplots(len(result.keys()), sharex=True, sharey=True)
-        all = []
+        all_values = []
         for values in result.values():
-            all += values
-        print(all)
+            all_values += values
         scope = []
-        counter = round(min(all), 1) - 0.2
-        ceiling = round(max(all), 1) + 0.2
+        counter = round(min(all_values), 1) - 0.2
+        ceiling = round(max(all_values), 1) + 0.2
         # define scope
         while counter <= ceiling:
             scope.append(format(counter, '.1f'))
             counter += 0.1
-        print(scope)
         vals = {}
         points = []
         y = []
@@ -41,45 +47,43 @@ class Plotter:
             # initialize all values in the scope as 0
             for i in scope:
                 vals[i] = 0
-            # count all results and increment values accordingly (for algo)
+            # count all results and increment values accordingly (for each algo)
             for point in result[algo]:
                 temp = format(round(point, 1), '.1f')
                 vals[temp] += 1
-            # val dict to points list
+            # convert val dictionary to points list
             for val in vals.items():
                 points.append([val[0], val[1]])
             points.sort()
             for point in points:
                 y.append(point[1])
             ax[counter].bar(scope, y, color='blue', width=0.2)
-            print(algo)
-            print('scope ', scope)
-            print('incidents ', y)
+            # clear all values from vals, points, and y for next algo
             vals.clear()
             points.clear()
             y.clear()
             counter += 1
-        print('Benchmarking ' + kpi + ', Stations Traversed = ' + str(traversed))
         plt.suptitle('Benchmarking ' + kpi + ', Stations Traversed = ' + str(traversed))
         names = ', '.join(result.keys())
         plt.xlabel(kpi + ' for ' + names + ' in ms')
-        print(kpi + ' for ' + names + ' in ms')
         plt.show()
 
-    def line(self, kpi, result: dict):
+    def line(self, kpi: KPI, result: Result):
         points = []
         x = []
         y = []
         for algo in result.keys():
+            # create a list of points
             for point in result[algo]:
                 points.append([point['traversed'], point['value']])
+            # sort points in place before separating x and y
             points.sort()
+            # separate x and y values from each point
             for p in points:
                 x.append(p[0])
                 y.append(p[1])
-            print(x)
-            print(y)
             plt.plot(x, y, label=algo)
+            # clear all values for points, x, and y for next algo
             points.clear()
             x.clear()
             y.clear()
@@ -88,5 +92,3 @@ class Plotter:
         plt.title('Benchmarking ' + kpi)
         plt.legend()
         plt.show()
-
-

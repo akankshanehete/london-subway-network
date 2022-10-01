@@ -1,3 +1,7 @@
+ID = int
+Priority = float
+
+
 class PriorityQueue(object):
     def __init__(self):
         self.queue = list()
@@ -5,9 +9,11 @@ class PriorityQueue(object):
     def is_empty(self):
         return len(self.queue) == 0
 
-    def insert(self, node, priority):
+    def insert(self, node: ID, priority: Priority):
         self.queue.append([node, priority])
 
+    # priority queue returns the lowest value as having higher priority
+    # shorter distance = lower value = higher priority
     def pop(self):
         try:
             low = 0

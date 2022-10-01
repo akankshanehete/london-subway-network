@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectTasksOptions">
+    <TaskOptions isEnabled="true">
+      <option name="arguments" value="--format=&quot;ERROR: %(path)s[%(row)d, %(col)d]: %(text)s (%(code)s)&quot; $FilePath$" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="UNKNOWN" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="flake8" />
+      <option name="output" value="$FilePath$" />
+      <option name="outputFilters">
+        <array>
+          <FilterInfo>
+            <option name="description" value="" />
+            <option name="name" value="" />
+            <option name="regExp" value="ERROR: $FILE_PATH$\[$LINE$, $COLUMN$\]: $MESSAGE$" />
+          </FilterInfo>
+        </array>
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="program" value="$USER_HOME$/Library/Python/3.8/bin/flake8_pycharm.py" />
+      <option name="runOnExternalChanges" value="true" />
+      <option name="scopeName" value="Module 'l1-graph-lab'" />
+      <option name="trackOnlyRoot" value="false" />
+      <option name="workingDir" value="" />
+      <envs />
+    </TaskOptions>
+  </component>
+</project>

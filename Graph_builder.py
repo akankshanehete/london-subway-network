@@ -1,10 +1,10 @@
-from Node import Node
 from Station_Node import Station_Node
 from Graph import Graph
 from Csv_reader import Csv_reader
 
+
 class Graph_builder:
-    def __init__(self, csv : Csv_reader, graph : Graph):
+    def __init__(self, csv: Csv_reader, graph: Graph):
         self.csv_reader = csv
         self.stations = None
         self.lines = None
@@ -24,12 +24,9 @@ class Graph_builder:
             station_node.set_is_rail(int(station['rail']))
             self.graph.add_node(station_node)
 
-
+    # creates connections in the graph from connections
     def create_connections(self, connections_file):
         self.connections = self.csv_reader.extract_csv(connections_file)
         for connection in self.connections:
-            self.graph.add_edge(int(connection['station1']), int(connection['station2']), int(connection['time']), connection['line'])
-
-
-
-
+            self.graph.add_edge(int(connection['station1']), int(connection['station2']), int(connection['time']),
+                                connection['line'])

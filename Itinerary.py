@@ -1,13 +1,20 @@
 from Graph import Graph
-from Graph_Algorithms.Dijkstra import Dijkstra
-from Graph_Algorithms.A_star import A_star
+from ShortestPath import ShortestPath
+
+Algorithm = ShortestPath
+From = int
+To = int
+
+
 class Itinerary:
-    def __init__(self, graph, from_station_id, to_station_id, algo):
+    def __init__(self, graph: Graph, from_station_id: From, to_station_id: To, algo: Algorithm):
         self.algo = algo
         self.graph = graph
         self.to_station = to_station_id
         self.from_station = from_station_id
 
+    # calls the shortest_path method using the specified algorithm (algo)
+    # returns the shortest path, number of stations traversed, total travel time, and lines connecting each station
     def find_shortest_path(self):
         shortest_paths = self.algo.shortest_path(self.graph, self.from_station, self.to_station)
         edge_to = shortest_paths['edge_to']
@@ -36,9 +43,9 @@ class Itinerary:
         results['travel time'] = dist_to[self.to_station]
         results['lines'] = lines
         return results
-        # return "Travel time: " + str(dist_to[self.to_station]) + "\n" + " -> ".join(reversed(string_path)) + "\nStations traversed: " + str(len(path)), len(path)
-        # return self.algo.shortest_path(self.graph, self.from_station, self.to_station)
 
+    # prints a well-formatted itinerary
+    # includes total travel time, number of stations traversed, path taken, and lines connecting each station
     def print_itinerary(self):
         results = self.find_shortest_path()
         print("Itinerary:")
@@ -50,6 +57,3 @@ class Itinerary:
         string_path[::2] = path
         string_path[1::2] = lines
         print("".join(string_path))
-
-
-

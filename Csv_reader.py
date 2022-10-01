@@ -3,10 +3,12 @@ this class reads files and extracts information, storing the results in a dictio
 for easy access to key value pairs
 """
 
+
 class Csv_reader:
     def __init__(self):
         pass
 
+    # read each line in csv file to a list
     def csv_to_list(self, csv_text):
         rows = []
         lines = csv_text.readlines()
@@ -14,6 +16,7 @@ class Csv_reader:
             rows.append(line.split(","))
         return rows
 
+    # creates a list, where each item in the list is a dictionary for the values in csv file
     def extract_csv(self, filename):
         csv_file = open(filename, 'r')
         csv_file = self.csv_to_list(csv_file)
@@ -24,14 +27,13 @@ class Csv_reader:
             value = {}
             if first:
                 title = i
+                # generate dictionary key title for each parameter using first line of csv file
                 for j in range(len(title)):
                     title[j] = title[j].strip('"').strip('\n').strip('"')
                 first = False
             else:
+                # add all values for each parameter
                 for j in range(len(title)):
                     value[title[j]] = i[j].strip('"').strip('\n').strip('"')
                 values.append(value)
         return values
-
-
-

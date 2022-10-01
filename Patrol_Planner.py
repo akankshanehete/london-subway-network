@@ -4,6 +4,7 @@ from Itinerary import Itinerary
 from Graph_Algorithms.Dijkstra import Dijkstra
 import itertools
 
+
 class Patrol_Planner:
 
     def __init__(self, graph: Graph, nodes_to_visit: list, starting_node):
@@ -11,7 +12,7 @@ class Patrol_Planner:
         self.compressed_graph = Graph()
         self.mst = Graph()
         for node in nodes_to_visit:
-            if self.graph.get_node(node) == None:
+            if self.graph.get_node(node) is None:
                 raise Exception("Some of the nodes to visit are not contained in the graph. Please make sure every node in the list is contained in the graph.")
         self.nodes_to_visit = set(nodes_to_visit)
         self.starting_node = starting_node
@@ -24,9 +25,8 @@ class Patrol_Planner:
         for node in self.graph:
             self.marked[node.get_node_id()] = False
 
-
     def add_node_to_visit(self, node_id):
-        if self.graph.get_node(node_id) == None:
+        if self.graph.get_node(node_id) is None:
             raise Exception("Node with that id not contained in the Graph.")
         if node_id == self.starting_node or node_id in self.nodes_to_visit:
             pass
@@ -44,14 +44,12 @@ class Patrol_Planner:
         self.marked = {}
         self.dfs(self.mst, self.starting_node)
 
-
     def dfs(self, mst: Graph, node_id):
         self.marked[node_id] = True
         self.condensed_patrol_path.append(node_id)
         for node in mst.get_node(node_id).get_adjacents():
             if node.get_node_id() not in self.marked.keys():
                 self.dfs(mst, node.get_node_id())
-
 
     def __get_mst(self):
         self.pq.queue = []
@@ -95,12 +93,3 @@ class Patrol_Planner:
             if self.patrol_path.count(node) > 1 and node != self.starting_node:
                 self.patrol_path.remove(node)
         return [self.patrol_path, self.patrol_path_weight]
-
-
-
-
-
-
-
-
-
