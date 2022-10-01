@@ -1,7 +1,8 @@
 from Graph import Graph
 from Graph_Algorithms.Dijkstra import Dijkstra
+from Graph_Algorithms.A_star import A_star
 class Itinerary:
-    def __init__(self, graph: Graph, from_station_id, to_station_id, algo):
+    def __init__(self, graph, from_station_id, to_station_id, algo):
         self.algo = algo
         self.graph = graph
         self.to_station = to_station_id
@@ -50,15 +51,5 @@ class Itinerary:
         string_path[1::2] = lines
         print("".join(string_path))
 
-testgraph = Graph()
-testgraph.add_edge(1, 3,1)
-testgraph.add_edge(1, 2,4)
-testgraph.add_edge(1, 4,1)
-testgraph.add_edge(2, 5,7)
-testgraph.add_edge(6, 7,1)
-testgraph.add_edge(5, 6,2)
-testgraph.add_edge(2, 6,9)
-itinerary1 = Itinerary(testgraph, 36, 289, Dijkstra())
-# printing itinerary
-itinerary1.print_itinerary()
+
 
