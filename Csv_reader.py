@@ -5,11 +5,10 @@ for easy access to key value pairs
 
 
 class Csv_reader:
-    def __init__(self):
-        pass
 
     # read each line in csv file to a list
-    def csv_to_list(self, csv_text):
+    @staticmethod
+    def csv_to_list(csv_text):
         rows = []
         lines = csv_text.readlines()
         for line in lines:

@@ -10,9 +10,9 @@ To = int
 
 class A_star(ShortestPath):
     def shortest_path(self, graph: Graph, from_node_id: From, to_node_id: To):
-        const = 20
+        const = 10
         unvisited = PriorityQueue()
-        unvisited.insert(from_node_id, - distance(graph.get_node(from_node_id), graph.get_node(to_node_id)))
+        unvisited.insert(from_node_id, - self.distance(graph.get_node(from_node_id), graph.get_node(to_node_id)))
         results = {}
         edge_to = {}
         dist_to = {}
@@ -42,7 +42,7 @@ class A_star(ShortestPath):
                     edge_to[a] = current
                     line_to[a] = graph.get_node(current).get_label(adj)
                     # set priority using distance to temp and distance heuristic
-                    weight = temp + const * distance(graph.get_node(a), graph.get_node(to_node_id))
+                    weight = temp + const * self.distance(graph.get_node(a), graph.get_node(to_node_id))
                     unvisited.insert(a, weight)
                     inserts += 1
                 else:
@@ -56,13 +56,13 @@ class A_star(ShortestPath):
         results['compares'] = compares
         return results
 
+    # A* heuristic takes the physical distance of the current node to the destination node as higher priority
+    # distance is then multiplied by const which determines how much the heuristic affects priority
+    @staticmethod
+    def distance(from_node: Station_Node, to_node: Station_Node):
+        x = abs(from_node.lat - to_node.lat)
+        y = abs(from_node.long - to_node.long)
+        return math.sqrt(x * x + y * y)
+
     def get_name(self):
         return "A_star"
-
-
-# A* heuristic takes the physical distance of the current node to the destination node as higher priority
-# distance is then multiplied by const which determines how much the heuristic affects priority
-def distance(from_node: Station_Node, to_node: Station_Node):
-    x = abs(from_node.lat - to_node.lat)
-    y = abs(from_node.long - to_node.long)
-    return math.sqrt(x * x + y * y)

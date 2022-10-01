@@ -19,7 +19,8 @@ class Plotter:
         pass
 
     # given a list of y values, this function plots it using matplotlib
-    def plot(self, y: List[Num], title='', x_title='', y_title=''):
+    @staticmethod
+    def plot(y: List[Num], title='', x_title='', y_title=''):
         plt.plot(y)
         plt.ylabel(y_title)
         plt.suptitle(title)
@@ -27,7 +28,8 @@ class Plotter:
         plt.show()
 
     # plots a bar graph for execution time KPIs with x-axis = time, y-axis = instances
-    def bar(self, kpi: KPI, traversed: Traversed, result: Result):
+    @staticmethod
+    def bar(kpi: KPI, traversed: Traversed, result: Result):
         fig, ax = plt.subplots(len(result.keys()), sharex=True, sharey=True)
         all_values = []
         for values in result.values():
@@ -68,7 +70,8 @@ class Plotter:
         plt.xlabel(kpi + ' for ' + names + ' in ms')
         plt.show()
 
-    def line(self, kpi: KPI, result: Result):
+    @staticmethod
+    def line(kpi: KPI, result: Result):
         points = []
         x = []
         y = []
