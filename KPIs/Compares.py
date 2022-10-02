@@ -10,5 +10,6 @@ To = int
 class Compares(KPI):
 
     # returns 'compares' value from shortest_path output
-    def measurement(self, graph: Graph, algo: Algorithm, from_node_id: From, to_node_id: To):
+    def measurement(self, graph: Graph, algo: Algorithm,
+                    from_node_id: From, to_node_id: To):
         return algo.shortest_path(graph, from_node_id, to_node_id)['compares']

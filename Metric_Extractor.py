@@ -30,4 +30,7 @@ class Metric_Extractor:
         for i in range(0, maximum):
             node_distribution_list.append(degree_list.count(i))
         distribution_plot = Plotter()
-        distribution_plot.plot(node_distribution_list, 'Graph Node Distribution', 'Degree', 'Number of Nodes')
+        distribution_plot.plot(node_distribution_list,
+                               'Graph Node Distribution',
+                               'Degree',
+                               'Number of Nodes')

@@ -14,8 +14,9 @@ class PatrolPlanner:
         self.mst = Graph()
         for node in nodes_to_visit:
             if self.graph.get_node(node) is None:
-                raise Exception("Some of the nodes to visit are not contained in the graph. Please make sure every \
-                node in the list is contained in the graph.")
+                raise Exception("Some of the nodes to visit are not contained "
+                                "in the graph. Please make sure every node in "
+                                "the list is contained in the graph.")
         self.nodes_to_visit = set(nodes_to_visit)
         self.starting_node = starting_node
         self.nodes_to_visit.add(starting_node)
@@ -43,7 +44,8 @@ class PatrolPlanner:
             permutation = [s] + permutation
             permutation.append(s)
             for i in range(len(permutation)-1):
-                itinerary = Itinerary(self.graph, permutation[i], permutation[i+1], Dijkstra())
+                itinerary = Itinerary(self.graph, permutation[i],
+                                      permutation[i+1], Dijkstra())
                 weight = itinerary.find_shortest_path()['travel time']
                 current_weight += weight
             min_path = min(min_path, current_weight)
@@ -51,7 +53,8 @@ class PatrolPlanner:
         return min_permutation, min_path
 
     def find_patrol_path(self):
-        edge_combinations = list(itertools.combinations(self.nodes_to_visit, 2))
+        edge_combinations = list(itertools.combinations(
+            self.nodes_to_visit, 2))
         paths_weights = {}
         for edge in edge_combinations:
             itinerary1 = Itinerary(self.graph, edge[0], edge[1], Dijkstra())
@@ -61,10 +64,13 @@ class PatrolPlanner:
             paths_weights[edge] = [path, weight]
             self.compressed_graph.add_edge(edge[0], edge[1], weight)
 
-        self.condensed_patrol_path = self.tsp(self.compressed_graph, self.starting_node)[0]
+        self.condensed_patrol_path = self.tsp(self.compressed_graph,
+                                              self.starting_node)[0]
         for i in range(0, len(self.condensed_patrol_path) - 1):
-            condensed_edge = (self.condensed_patrol_path[i], self.condensed_patrol_path[i + 1])
-            condensed_edge_rev = (self.condensed_patrol_path[i + 1], self.condensed_patrol_path[i])
+            condensed_edge = (self.condensed_patrol_path[i],
+                              self.condensed_patrol_path[i + 1])
+            condensed_edge_rev = (self.condensed_patrol_path[i + 1],
+                                  self.condensed_patrol_path[i])
             if condensed_edge in list(paths_weights.keys()):
                 for node in paths_weights[condensed_edge][0]:
                     self.patrol_path.append(node)

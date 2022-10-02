@@ -24,7 +24,8 @@ class Dijkstra(ShortestPath):
         edge_to[from_node_id] = None
         dist_to[from_node_id] = 0
         line_to[from_node_id] = None
-        # visit nodes based on priority, relax edge_to if shorter dist_to is found
+        # visit nodes based on priority
+        # relax edge_to if shorter dist_to is found
         while not unvisited.is_empty():
             current = unvisited.pop()[0]
             visited += 1
@@ -32,7 +33,8 @@ class Dijkstra(ShortestPath):
                 break
             adjacent = graph.get_node(current).get_adjacents()
             for adj in adjacent:
-                temp = dist_to[current] + graph.get_node(current).get_weight(adj)
+                temp = dist_to[current] \
+                       + graph.get_node(current).get_weight(adj)
                 a = adj.get_node_id()
                 if a not in edge_to or temp < dist_to[a]:
                     compares += 1

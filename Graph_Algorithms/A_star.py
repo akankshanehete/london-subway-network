@@ -12,7 +12,9 @@ class A_star(ShortestPath):
     def shortest_path(self, graph: Graph, from_node_id: From, to_node_id: To):
         const = 10
         unvisited = PriorityQueue()
-        unvisited.insert(from_node_id, - self.distance(graph.get_node(from_node_id), graph.get_node(to_node_id)))
+        unvisited.insert(from_node_id,
+                         - self.distance(graph.get_node(from_node_id),
+                                         graph.get_node(to_node_id)))
         results = {}
         edge_to = {}
         dist_to = {}
@@ -26,7 +28,8 @@ class A_star(ShortestPath):
         edge_to[from_node_id] = None
         dist_to[from_node_id] = 0
         line_to[from_node_id] = None
-        # visit nodes based on priority, relax edge_to if shorter dist_to is found
+        # visit nodes based on priority
+        # relax edge_to if shorter dist_to is found
         while not unvisited.is_empty():
             current = unvisited.pop()[0]
             visited += 1
@@ -34,15 +37,18 @@ class A_star(ShortestPath):
                 break
             adjacent = graph.get_node(current).get_adjacents()
             for adj in adjacent:
-                temp = dist_to[current] + graph.get_node(current).get_weight(adj)
+                temp = dist_to[current] \
+                       + graph.get_node(current).get_weight(adj)
                 a = adj.get_node_id()
                 if a not in edge_to or temp < dist_to[a]:
                     compares += 1
                     dist_to[a] = temp
                     edge_to[a] = current
                     line_to[a] = graph.get_node(current).get_label(adj)
-                    # set priority using distance to temp and distance heuristic
-                    weight = temp + const * self.distance(graph.get_node(a), graph.get_node(to_node_id))
+                    # set priority using temp and distance heuristic
+                    weight = temp
+                    weight += const * self.distance(graph.get_node(a),
+                                                    graph.get_node(to_node_id))
                     unvisited.insert(a, weight)
                     inserts += 1
                 else:
@@ -56,8 +62,9 @@ class A_star(ShortestPath):
         results['compares'] = compares
         return results
 
-    # A* heuristic takes the physical distance of the current node to the destination node as higher priority
-    # distance is then multiplied by const which determines how much the heuristic affects priority
+    # A* heuristic takes the physical distance of the current node to the
+    # destination node as higher priority. Distance is then multiplied by
+    # const which determines how much the heuristic affects priority
     @staticmethod
     def distance(from_node: Station_Node, to_node: Station_Node):
         x = abs(from_node.lat - to_node.lat)

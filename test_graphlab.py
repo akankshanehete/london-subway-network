@@ -5,19 +5,19 @@ from Metric_Extractor import Metric_Extractor
 from Itinerary import Itinerary
 from Graph_Algorithms.Dijkstra import Dijkstra
 from Graph_Algorithms.A_star import A_star
-from Graph_Algorithms.Priority_Queue import PriorityQueue
-from ShortestPath import ShortestPath
-from Test import Test
-from KPIs.CpuTime import CpuTime
-from KPIs.ExecutionTime import ExecutionTime
-from KPIs.Visited import Visited
-from KPIs.Inserts import Inserts
-from KPIs.Compares import Compares
-from Benchmark import Benchmark
-from Plotter import Plotter
-import matplotlib.pyplot as plt
-import time
-import pytest
+# from Graph_Algorithms.Priority_Queue import PriorityQueue
+# from ShortestPath import ShortestPath
+# from Test import Test
+# from KPIs.CpuTime import CpuTime
+# from KPIs.ExecutionTime import ExecutionTime
+# from KPIs.Visited import Visited
+# from KPIs.Inserts import Inserts
+# from KPIs.Compares import Compares
+# from Benchmark import Benchmark
+# from Plotter import Plotter
+# import matplotlib.pyplot as plt
+# import time
+# import pytest
 
 # build test graph 1
 test_graph1 = Graph()
@@ -46,8 +46,10 @@ def test_extract_csv():
     filename = '_samples/stations_test.csv'
     reader = Csv_reader()
     values = reader.extract_csv(filename)
-    assert values == [{'id': '1', 'name': ' "Anna station'}, {'id': '2', 'name': ' "Akanksha station'},
-                      {'id': '3', 'name': ' "Sebastian station'}, {'id': '4', 'name': ' "Eshaan station'}]
+    assert values == [{'id': '1', 'name': ' "Anna station'},
+                      {'id': '2', 'name': ' "Akanksha station'},
+                      {'id': '3', 'name': ' "Sebastian station'},
+                      {'id': '4', 'name': ' "Eshaan station'}]
 
 
 def test_dijkstra():

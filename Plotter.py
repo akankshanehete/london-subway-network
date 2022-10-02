@@ -27,7 +27,8 @@ class Plotter:
         plt.xlabel(x_title)
         plt.show()
 
-    # plots a bar graph for execution time KPIs with x-axis = time, y-axis = instances
+    # plots a bar graph for execution time KPIs
+    # x-axis = time, y-axis = instances
     @staticmethod
     def bar(kpi: KPI, traversed: Traversed, result: Result):
         fig, ax = plt.subplots(len(result.keys()), sharex=True, sharey=True)
@@ -49,7 +50,7 @@ class Plotter:
             # initialize all values in the scope as 0
             for i in scope:
                 vals[i] = 0
-            # count all results and increment values accordingly (for each algo)
+            # count all results and increment values accordingly
             for point in result[algo]:
                 temp = format(round(point, 1), '.1f')
                 vals[temp] += 1
@@ -65,7 +66,8 @@ class Plotter:
             points.clear()
             y.clear()
             counter += 1
-        plt.suptitle('Benchmarking ' + kpi + ', Stations Traversed = ' + str(traversed))
+        plt.suptitle('Benchmarking ' + kpi + ', Stations Traversed = '
+                     + str(traversed))
         names = ', '.join(result.keys())
         plt.xlabel(kpi + ' for ' + names + ' in ms')
         plt.show()
@@ -94,4 +96,23 @@ class Plotter:
         plt.ylabel(kpi)
         plt.title('Benchmarking ' + kpi)
         plt.legend()
+        plt.show()
+
+    @staticmethod
+    def line2(result: list):
+        points = []
+        x = []
+        y = []
+        for point in result:
+            points.append([point['nodes'], point['average']])
+            # sort points in place before separating x and y
+        points.sort()
+        # separate x and y values from each point
+        for p in points:
+            x.append(p[0])
+            y.append(p[1])
+        plt.plot(x, y)
+        plt.xlabel('Number of Nodes in Graph')
+        plt.ylabel('Execution Time in ms')
+        plt.title('Execution Time of Transportation Islands')
         plt.show()

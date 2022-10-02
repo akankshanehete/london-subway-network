@@ -7,16 +7,20 @@ To = int
 
 
 class Itinerary:
-    def __init__(self, graph: Graph, from_station_id: From, to_station_id: To, algo: Algorithm):
+    def __init__(self, graph: Graph, from_station_id: From,
+                 to_station_id: To, algo: Algorithm):
         self.algo = algo
         self.graph = graph
         self.to_station = to_station_id
         self.from_station = from_station_id
 
     # calls the shortest_path method using the specified algorithm (algo)
-    # returns the shortest path, number of stations traversed, total travel time, and lines connecting each station
+    # returns the shortest path, number of stations traversed,
+    # total travel time, and lines connecting each station
     def find_shortest_path(self):
-        shortest_paths = self.algo.shortest_path(self.graph, self.from_station, self.to_station)
+        shortest_paths = self.algo.shortest_path(self.graph,
+                                                 self.from_station,
+                                                 self.to_station)
         edge_to = shortest_paths['edge_to']
         dist_to = shortest_paths['dist_to']
         line_to = shortest_paths['line_to']
@@ -45,7 +49,8 @@ class Itinerary:
         return results
 
     # prints a well-formatted itinerary
-    # includes total travel time, number of stations traversed, path taken, and lines connecting each station
+    # includes total travel time, number of stations traversed,
+    # path taken, and lines connecting each station
     def print_itinerary(self):
         results = self.find_shortest_path()
         print("Itinerary:")

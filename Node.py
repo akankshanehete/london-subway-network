@@ -19,10 +19,10 @@ class Node:
     def get_node_id(self):
         return self.id
 
-    # gets the weight of the edge connecting this node to one of its adjacent nodes
+    # gets the weight of the edge connecting this node to one of its adj
     def get_weight(self, adjacent_node):
         return self.adjacent[adjacent_node][0]
 
-    # gets the label of the edge connecting this node to one of its adjacent nodes
+    # gets the label of the edge connecting this node to one of its adj
     def get_label(self, adjacent_node):
         return self.adjacent[adjacent_node][1]

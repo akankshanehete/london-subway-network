@@ -29,7 +29,8 @@ class Graph:
         else:
             return None
 
-    # adds an edge where the default weight is 0 unless a specific number is specified
+    # adds an edge where the default weight is 0
+    # unless a specific number is specified
     def add_edge(self, from_node: From, to_node: To, weight=0, label=''):
         if from_node not in self.all_nodes:
             f = Node(from_node)
@@ -37,8 +38,10 @@ class Graph:
         if to_node not in self.all_nodes:
             t = Node(to_node)
             self.add_node(t)
-        self.all_nodes[from_node].add_adjacent(self.all_nodes[to_node], weight, label)
-        self.all_nodes[to_node].add_adjacent(self.all_nodes[from_node], weight, label)
+        self.all_nodes[from_node].add_adjacent(self.all_nodes[to_node],
+                                               weight, label)
+        self.all_nodes[to_node].add_adjacent(self.all_nodes[from_node],
+                                             weight, label)
         self.num_edges += 1
 
     # checks if there is a given edge between 2 node ids in graph
@@ -47,16 +50,19 @@ class Graph:
             return False
         if to_node not in self.all_nodes:
             return False
-        if (self.get_node(from_node) in self.get_node(to_node).get_adjacents()) \
-                and self.get_node(to_node) in self.get_node(from_node).get_adjacents():
+        if (self.get_node(from_node) in self.get_node(
+                to_node).get_adjacents()) \
+                and self.get_node(to_node) in self.get_node(from_node).\
+                get_adjacents():
             return True
         return False
 
     # deletes edge from graph if edge is present in graph
     def delete_edge(self, from_node: From, to_node: To):
         if from_node not in self.all_nodes or to_node not in self.all_nodes:
-            raise Exception("One or both of these nodes are not contained in the graph. "
-                            "Please enter nodes that are contained in the graph.")
+            raise Exception("One or both of these nodes are not "
+                            "contained in the graph. Please enter nodes "
+                            "that are contained in the graph.")
         self.all_nodes[from_node].del_adjacent(self.all_nodes[to_node])
         self.all_nodes[to_node].del_adjacent(self.all_nodes[from_node])
         self.num_edges -= 1
@@ -72,11 +78,13 @@ class Graph:
                     maximum = temp
         return maximum
 
-    # prints all connections in the graph, along with their weight and label (if the label exists)
+    # prints all connections in the graph, along with their weight
+    # and label (if the label exists)
     def print_all_connections(self):
         for node in self:
             for neighbour in node.get_adjacents():
                 node_id = node.get_node_id()
                 neighbour_id = neighbour.get_node_id()
-                print('( %s , %s, %3d, %s)' % (node_id, neighbour_id, node.get_weight(neighbour),
+                print('( %s , %s, %3d, %s)' % (node_id, neighbour_id,
+                                               node.get_weight(neighbour),
                                                node.get_label(neighbour)))
