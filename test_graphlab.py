@@ -8,6 +8,7 @@ from Graph_Algorithms.A_star import A_star
 from PatrolPlanner import PatrolPlanner
 from Station_Node import Station_Node
 from Graph_Algorithms.Priority_Queue import PriorityQueue
+
 # import pytest
 
 # build test graph 1
@@ -51,6 +52,13 @@ test_graph3.add_edge(30, 4, 50)
 test_graph3.add_edge(5, 45, 89)
 test_graph3.add_edge(30, 3, 1)
 
+# build test graph 4
+test_graph4 = Graph()
+test_graph4.add_edge(1, 2, 2, 'red')
+test_graph4.add_edge(2, 3, 1, 'green')
+test_graph4.add_edge(3, 4, 3, 'blue')
+test_graph4.add_edge(4, 1, 2, 'yellow')
+
 
 def test_extract_csv():
     filename = '_samples/stations_test.csv'
@@ -60,6 +68,17 @@ def test_extract_csv():
                       {'id': '2', 'name': ' "Akanksha station'},
                       {'id': '3', 'name': ' "Sebastian station'},
                       {'id': '4', 'name': ' "Eshaan station'}]
+
+
+def test_graph():
+    max_weight = test_graph4.get_max_weight()
+    test_graph4.delete_edge(4, 1)
+    is_edge = test_graph4.is_edge(4, 1)
+    assert max_weight == 3
+    if not is_edge:
+        assert True
+    else:
+        assert False
 
 
 def test_priority_queue():
