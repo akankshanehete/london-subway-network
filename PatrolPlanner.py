@@ -4,6 +4,13 @@ from Graph_Algorithms.Dijkstra import Dijkstra
 import itertools
 from sys import maxsize
 from itertools import permutations
+'''
+
+This class determines the optimal patrol path
+(path of least weight) when it is given a graph
+and a starting node which represents the base
+office of the patrol officer.
+'''
 
 
 class PatrolPlanner:
@@ -24,6 +31,7 @@ class PatrolPlanner:
         self.condensed_patrol_path = []
         self.patrol_path_weight = 0
 
+    # adds node to desired patrol path
     def add_node_to_visit(self, node_id):
         if self.graph.get_node(node_id) is None:
             raise Exception("Node with that id not contained in the Graph.")
@@ -31,6 +39,11 @@ class PatrolPlanner:
             pass
         self.nodes_to_visit.add(node_id)
 
+    '''
+    Given a graph and a starting node, the function determines the most
+    optimal path and returns the path as a list, along with the total
+    weight of the most efficient tour.
+    '''
     def tsp(self, graph: Graph, s):
         nodes = list(graph.all_nodes.keys())
         if s in nodes:
@@ -52,6 +65,8 @@ class PatrolPlanner:
             min_permutation = permutation
         return min_permutation, min_path
 
+    # finds patrol path from compressed graph created
+    # see theoretical explanation for more details
     def find_patrol_path(self):
         edge_combinations = list(itertools.combinations(
             self.nodes_to_visit, 2))
@@ -85,6 +100,7 @@ class PatrolPlanner:
                 self.patrol_path.remove(node)
         return [self.patrol_path, self.patrol_path_weight]
 
+    # prints the patrol path in the console in a user-friendly format
     @staticmethod
     def print_graph_path(path: list, weight: int):
         string_path = list(map(str, path))

@@ -27,6 +27,8 @@ class TransportationIslands:
         self.transport_list = []
         self.transport_list_zones = []
 
+    # identifies edges that are interzone
+    # adds them to a list for deletion
     def identify_interzone_edges(self, node_id: ID):
         self.marked[node_id] = True
         for adjacent in self.graph.get_node(node_id).get_adjacents():
@@ -37,6 +39,8 @@ class TransportationIslands:
             if self.marked[adjacent.get_node_id()] is False:
                 self.identify_interzone_edges(adjacent.get_node_id())
 
+    # deletes interzone edges in the graph and stores as a new graph
+    # connected components are collected using dfs
     def get_transportation_islands(self):
         self.identify_interzone_edges(self.start)
         for edge in self.deletion_edges:
@@ -60,6 +64,7 @@ class TransportationIslands:
                   self.transport_list_zones]
         return values
 
+    # prints summary of transportation islands
     def print_trans_island_summary(self):
         print('Transportation Islands and Zones:')
         for island in self.transport_list:
