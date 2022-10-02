@@ -15,4 +15,4 @@ class ExecutionTime(KPI):
         start_time = time.time()
         algo.shortest_path(graph, from_node_id, to_node_id)
         end_time = time.time()
-        return end_time - start_time
+        return 1000 * (end_time - start_time)
