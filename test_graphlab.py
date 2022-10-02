@@ -7,7 +7,7 @@ from Graph_Algorithms.Dijkstra import Dijkstra
 from Graph_Algorithms.A_star import A_star
 from PatrolPlanner import PatrolPlanner
 from Station_Node import Station_Node
-# from Graph_Algorithms.Priority_Queue import PriorityQueue
+from Graph_Algorithms.Priority_Queue import PriorityQueue
 # import pytest
 
 # build test graph 1
@@ -60,6 +60,20 @@ def test_extract_csv():
                       {'id': '2', 'name': ' "Akanksha station'},
                       {'id': '3', 'name': ' "Sebastian station'},
                       {'id': '4', 'name': ' "Eshaan station'}]
+
+
+def test_priority_queue():
+    pq = PriorityQueue()
+    pq.insert(1, 5)
+    pq.insert(3, 15)
+    pq.insert(5, 25)
+    pq.insert(2, 10)
+    pq.insert(4, 20)
+    assert pq.pop() == [1, 5]
+    assert pq.pop() == [2, 10]
+    assert pq.pop() == [3, 15]
+    assert pq.pop() == [4, 20]
+    assert pq.pop() == [5, 25]
 
 
 def test_dijkstra():
