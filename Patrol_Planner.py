@@ -1,22 +1,21 @@
 from Graph import Graph
-from Node import Node
-from Graph_Algorithms.Priority_Queue import PriorityQueue
 from Itinerary import Itinerary
 from Graph_Algorithms.Dijkstra import Dijkstra
 import itertools
 from sys import maxsize
 from itertools import permutations
 
-class Patrol_Planner:
 
+class PatrolPlanner:
 
     def __init__(self, graph: Graph, nodes_to_visit: list, starting_node):
         self.graph = graph
         self.compressed_graph = Graph()
         self.mst = Graph()
         for node in nodes_to_visit:
-            if self.graph.get_node(node) == None:
-                raise Exception("Some of the nodes to visit are not contained in the graph. Please make sure every node in the list is contained in the graph.")
+            if self.graph.get_node(node) is None:
+                raise Exception("Some of the nodes to visit are not contained in the graph. Please make sure every \
+                node in the list is contained in the graph.")
         self.nodes_to_visit = set(nodes_to_visit)
         self.starting_node = starting_node
         self.nodes_to_visit.add(starting_node)
@@ -24,27 +23,25 @@ class Patrol_Planner:
         self.condensed_patrol_path = []
         self.patrol_path_weight = 0
 
-
-
     def add_node_to_visit(self, node_id):
-        if self.graph.get_node(node_id) == None:
+        if self.graph.get_node(node_id) is None:
             raise Exception("Node with that id not contained in the Graph.")
         if node_id == self.starting_node or node_id in self.nodes_to_visit:
             pass
         self.nodes_to_visit.add(node_id)
 
-    def tSP(self, graph: Graph, s):
+    def tsp(self, graph: Graph, s):
         nodes = list(graph.all_nodes.keys())
         if s in nodes:
             nodes.remove(s)
         possible_paths = permutations(nodes)
         min_path = maxsize
+        min_permutation = []
         for permutation in possible_paths:
             current_weight = 0
             permutation = list(permutation)
             permutation = [s] + permutation
             permutation.append(s)
-            min_permutation = []
             for i in range(len(permutation)-1):
                 itinerary = Itinerary(self.graph, permutation[i], permutation[i+1], Dijkstra())
                 weight = itinerary.find_shortest_path()['travel time']
@@ -52,8 +49,6 @@ class Patrol_Planner:
             min_path = min(min_path, current_weight)
             min_permutation = permutation
         return min_permutation, min_path
-
-
 
     def find_patrol_path(self):
         edge_combinations = list(itertools.combinations(self.nodes_to_visit, 2))
@@ -66,7 +61,7 @@ class Patrol_Planner:
             paths_weights[edge] = [path, weight]
             self.compressed_graph.add_edge(edge[0], edge[1], weight)
 
-        self.condensed_patrol_path = self.tSP(self.compressed_graph, self.starting_node)[0]
+        self.condensed_patrol_path = self.tsp(self.compressed_graph, self.starting_node)[0]
         for i in range(0, len(self.condensed_patrol_path) - 1):
             condensed_edge = (self.condensed_patrol_path[i], self.condensed_patrol_path[i + 1])
             condensed_edge_rev = (self.condensed_patrol_path[i + 1], self.condensed_patrol_path[i])
@@ -84,12 +79,10 @@ class Patrol_Planner:
                 self.patrol_path.remove(node)
         return [self.patrol_path, self.patrol_path_weight]
 
-    def print_graph_path(self, path: list, weight: int):
+    @staticmethod
+    def print_graph_path(path: list, weight: int):
         string_path = list(map(str, path))
         print("Patrol Path:")
         print("Travel time is " + str(weight) + ".")
         print("Stations Traversed")
         print(" --> ".join(string_path))
-
-
-
